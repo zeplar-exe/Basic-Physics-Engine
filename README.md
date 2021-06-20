@@ -4,7 +4,7 @@ A lightweight resume project used to simulate physics environments
 
 Table of Contents
 - [`PhysicsSimulator`](Physics-Simulator)
-- [`PhysicsObject](Physics-Object)
+- [`PhysicsObject`](Physics-Object)
   - [`Rectangle`](Rectangle)
 
 
