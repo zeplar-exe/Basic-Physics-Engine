@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicPhysicsEngine", "BasicPhysicsEngine\BasicPhysicsEngine.csproj", "{3ABE996B-C564-44F2-9D00-4FD6CF1F433A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physics-Unit-Tests", "Physics-Unit-Tests\Physics-Unit-Tests.csproj", "{7A26C532-7517-4CEE-88B3-0A7C21526A01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3ABE996B-C564-44F2-9D00-4FD6CF1F433A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ABE996B-C564-44F2-9D00-4FD6CF1F433A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ABE996B-C564-44F2-9D00-4FD6CF1F433A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ABE996B-C564-44F2-9D00-4FD6CF1F433A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A26C532-7517-4CEE-88B3-0A7C21526A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A26C532-7517-4CEE-88B3-0A7C21526A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A26C532-7517-4CEE-88B3-0A7C21526A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A26C532-7517-4CEE-88B3-0A7C21526A01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
