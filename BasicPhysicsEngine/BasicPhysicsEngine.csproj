@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <PackageReference Include="SFML.Net" Version="2.5.0" />
+      <PackageReference Include="Ultraviolet" Version="2021.5.0.4569" />
     </ItemGroup>
 
 </Project>

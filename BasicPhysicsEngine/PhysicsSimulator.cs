@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading;
 using BasicPhysicsEngine.PhysicsObjects;
 
+using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
+
 namespace BasicPhysicsEngine
 {
     public class PhysicsSimulator
@@ -35,7 +39,7 @@ namespace BasicPhysicsEngine
         {
             time = settings;
         }
-        
+
         public void Start()
         {
             if (gravity == null)
@@ -44,20 +48,51 @@ namespace BasicPhysicsEngine
                 throw new Exception("Simulation time settings cannot be null. Did you forget to call 'ApplyTimeSettings'?");
 
             running = true;
-
-            var updateThread = new Thread(UpdateLoop);
-            updateThread.Start();
+            
+            new Thread(UpdateLoop).Start();
         }
-
+        
         private void UpdateLoop()
         {
             while (running)
             {
                 Thread.Sleep(updateStep);
-                Update();
+                if (Update() == 1) 
+                    break;
             }
         }
+        
+        public void StartWithVisuals()
+        {
+            throw new NotImplementedException();
+            
+            new Thread(WindowThread).Start();
+            
+            Start();
+        }
 
+        private void WindowThread()
+        {
+            var window = new RenderWindow(new VideoMode(500, 300), "Physics Simulation", Styles.Default);
+
+            window.Closed += (sender, args) => window.Close();
+            
+            while (window.IsOpen && running)
+            {
+                window.Clear();
+                window.DispatchEvents();
+
+                foreach (PhysicsObject physicsObject in objects)
+                {
+                    Shape shape = physicsObject.Bounds.ToShape();
+                    shape.Position = physicsObject.Bounds.Center;
+                    window.Draw(shape);
+                }
+                
+                window.Display();
+            }
+        }
+        
         public void Stop()
         {
             running = false;
@@ -68,10 +103,15 @@ namespace BasicPhysicsEngine
             Update();
         }
         
-        private void Update()
+        private int Update()
         {
+            if (objects.Count == 0)
+                return 1;
+            
             foreach (var physicsObject in objects.Where(physicsObject => physicsObject.ObjectType.HasFlag(ObjectType.Dynamic)))
                 HandleDynamicObject(physicsObject);
+
+            return 0;
         }
 
         private void HandleDynamicObject(PhysicsObject physicsObject)
@@ -84,7 +124,11 @@ namespace BasicPhysicsEngine
                 if (physicsObject == otherObject)
                     continue;
                 
-                // TODO: Implement overlap checking
+                if (physicsObject.Bounds.IsOverlapping(otherObject))
+                {
+                    grounded = true;
+                    break;
+                }
             }
             
             if (!grounded)
@@ -99,7 +143,7 @@ namespace BasicPhysicsEngine
         {
             if (!objectB.ObjectType.HasFlag(ObjectType.Kinematic))
                 return;
-            
+
             
         }
     }

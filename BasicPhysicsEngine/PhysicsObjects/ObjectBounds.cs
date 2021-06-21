@@ -1,43 +1,106 @@
+using System;
+using SFML.Graphics;
+using SFML.System;
+
 namespace BasicPhysicsEngine.PhysicsObjects
 {
     public enum BoundsType { None, Rectangle }
     
-    internal class ObjectBounds
+    public abstract class ObjectBounds
     {
-        private Vector2 center;
+        protected Vector2 center { get; set; }
 
-        public Vector2 Center
+        public abstract Vector2 Center { get; set; }
+
+        protected Vector2 top;
+        public abstract Vector2 Top { get; set; }
+
+        
+        protected Vector2 bottom;
+        public abstract Vector2 Bottom { get; set; }
+
+        
+        protected Vector2 left;
+        public abstract Vector2 Left { get; set; }
+
+        
+        protected Vector2 right;
+        public abstract Vector2 Right { get; set; }
+
+        public abstract void Resize(Vector2 size);
+
+        public abstract bool IsOverlapping(PhysicsObject other);
+
+        internal abstract Shape ToShape();
+        
+        public abstract override string ToString();
+    }
+
+    internal class Rectangle : ObjectBounds
+    {
+        public override Vector2 Center
         {
             set
             {
                 var change = value - center;
-                
+
                 center = value;
             
                 Top += change;
-                Right += change;
+                Bottom += change;
                 Right += change;
                 Left += change;
             }
             get => center;
         }
+        
+        public override Vector2 Top
+        {
+            get => top;
+            set => top = value;
+        }
 
-        public Vector2 Top;
-        public Vector2 Bottom;
-        public Vector2 Left;
-        public Vector2 Right;
+        public override Vector2 Bottom
+        {
+            get => bottom;
+            set => bottom = value;
+        }
 
-        public void Resize(Vector2 size)
+        public override Vector2 Left
+        {
+            get => left;
+            set => left = value;
+        }
+        
+        public override Vector2 Right
+        {
+            get => right;
+            set => right = value;
+        }
+
+        public override void Resize(Vector2 size)
         {
             Top = Center + new Vector2(0, size.Y/2);
-            Bottom =Center + new Vector2(0, -size.Y/2);
-            Left = Center + new Vector2(size.X/2, 0);
-            Right = Center + new Vector2(-size.X/2, 0);
+            Bottom = Center + new Vector2(0, -(size.Y/2));
+            Left = Center + new Vector2(-(size.X/2), 0);
+            Right = Center + new Vector2(size.X/2, 0);
         }
-    }
 
-    internal class Rectangle : ObjectBounds
-    {
-        
+        public override bool IsOverlapping(PhysicsObject other)
+        {
+            return left.X < other.Bounds.Right.X && Right.X > other.Bounds.Left.X &&
+                   Top.Y > other.Bounds.Bottom.Y && Bottom.Y < other.Bounds.Top.Y;
+        }
+
+        internal override Shape ToShape()
+        {
+            throw new NotImplementedException();
+            //return new RectangleShape(new Vector2(Math.Abs(Right.X) - Math.Abs(Left.X), Math.Abs(Bottom.Y) - Math.Abs(Top.Y)));
+        }
+
+        public override string ToString()
+        {
+            return $"X: ({Left}, {Right}), Y: ({Top}, {Bottom})";
+        }
     }
 }
