@@ -9,9 +9,14 @@ namespace BasicPhysicsEngine
             strength = gravity;
         }
 
-        public float GetForceAfterT(float time)
+        public float GetPositionAfterT(Milliseconds milliseconds)
         {
-            return strength * time;
+            return strength * milliseconds.ToSeconds();
+        }
+
+        public static Gravity Default()
+        {
+            return new();
         }
     }
 }
