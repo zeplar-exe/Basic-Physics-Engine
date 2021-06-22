@@ -173,8 +173,6 @@ namespace BasicPhysicsEngine
 
                 CollisionArea area = physicsObject.Bounds.IsOverlapping(otherObject);
 
-                Console.WriteLine(area);
-                
                 if (area.HasFlag(CollisionArea.None))
                     return;
                     
