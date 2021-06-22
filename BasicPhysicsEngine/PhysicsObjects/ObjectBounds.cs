@@ -4,7 +4,7 @@ using SFML.System;
 
 namespace BasicPhysicsEngine.PhysicsObjects
 {
-    public enum BoundsType { None, Rectangle }
+    public enum BoundsType { Rectangle }
     
     public abstract class ObjectBounds
     {
@@ -32,7 +32,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
 
         public abstract bool IsOverlapping(PhysicsObject other);
 
-        internal abstract Shape ToShape();
+        public abstract Shape ToShape();
         
         public abstract override string ToString();
     }
@@ -95,7 +95,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
                    Top.Y > other.Bounds.Bottom.Y && Bottom.Y < other.Bounds.Top.Y;
         }
 
-        internal override Shape ToShape()
+        public override Shape ToShape()
         {
             return new RectangleShape
             {

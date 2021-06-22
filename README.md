@@ -1,6 +1,6 @@
 # Basic Physics Engine
 
-A lightweight resume project used to simulate physics environments
+A lightweight physics engine built in C# to simulate multiple environments.
 
 Table of Contents
 - [`Physics Simulator`](#physics-simulator)
@@ -10,8 +10,7 @@ Table of Contents
 
 # Physics Simulator
 Class used to create instances of physics simulations. Each simulation has a unique timescale and physics settings. 
-Through the usage of threads, each instance can be analyzed side-by-side. 
-Time is measured in milliseconds and handled by the [Milliseconds class](Milliseconds).
+Through the usage of threads, each can be analyzed side-by-side.
 
 Usage (C#):
 ```c#
@@ -25,7 +24,7 @@ simulator.Start(); // Keep in mind that a simulation will automatically stop if 
 ```
 
 A simulation can be successfully started when Gravity and Time settings have been applied.
-It will automatically stop once all PhysicsObjects have been destroyed.
+It will automatically stop if all PhysicsObjects have been destroyed.
 
 # Physics Object
 Object that can be manipulated by physics.
@@ -42,7 +41,7 @@ physObject.SetObjectType(ObjectType.Dynamic | ObjectType.Kinematic);
 // Kinematic objects can affect other non-static objects.
 // Non-Kinematic objects are not affected by any forces and must be moved directly through their ObjectBounds.
 
-physObject.Resize(5, 5);
+physObject.Resize(new Vector2(5, 5));
 physObject.AddToSimulation(simulator);
 
 PhysicsObject ground = new PhysicsObject(Bounds.Rectangle);
@@ -50,7 +49,7 @@ PhysicsObject ground = new PhysicsObject(Bounds.Rectangle);
 physObject.SetObjectType(ObjectType.Static);
 // Static objects cannot be moved and are not affected by physics.
 
-physObject.Resize(30, 1);
+physObject.Resize(new Vector3(30, 1));
 physObject.AddToSimulation(simulator);
 
 // Object type 'ObjectType.Dynamic | ObjectType.Kinematic' can also be written as 'ObjectType.Default'
@@ -62,24 +61,28 @@ The PhysicsObject class cannot be subclassed.
 The ObjectBounds class defines a template for collision boundaries of all Physics Objects.
 ObjectBounds are publicly exposed, allowing for custom shapes.
 
-## Rectangle
-Rectangles are the default bounds shape. They can be resized with one parameter `Resize(Vector2)` and are the most optimization friendly.
+Pre-made shapes can be accessed using the BoundsType enum.
+```c#
+public enum BoundsType { Rectangle }
+```
 
-# Other Classes
+Creating your own BoundsType will require the following class attributes
+```c#
+public abstract Vector2 Center { get; set; }
 
-## Gravity
-Data structure that holds information on gravity settings and configuration.
-Uses earth gravity by default (9.81)
+public abstract Vector2 Top { get; set; }
 
-## Time
-Data structure that holds values related to timescale among others.
-Timescale is 1 by default.
+public abstract Vector2 Bottom { get; set; }
 
-## Milliseconds
-A Millisecond converter/helper class. Can convert seconds to milliseconds and vica versa, as well as be used in place of integers.
-Constructed using a factory method or integer, `Milliseconds.FromSeconds(1)` is equivalent to `new Milliseconds(1000)`.
-FromSeconds also accepts floating point values.
+public abstract Vector2 Left { get; set; }
 
-## Vector2
-Uses the cartesian point system. Allows for basic arithmetic. 
-Constructed using two floats, `new Vector2()`
+public abstract Vector2 Right { get; set; }
+
+public abstract void Resize(Vector2 size);
+
+public abstract bool IsOverlapping(PhysicsObject other);
+
+public abstract Shape ToShape();
+
+public abstract override string ToString();
+```

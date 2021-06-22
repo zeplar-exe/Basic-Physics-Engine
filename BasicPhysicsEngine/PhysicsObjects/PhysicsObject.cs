@@ -15,13 +15,11 @@ namespace BasicPhysicsEngine.PhysicsObjects
         {
             switch (boundsType)
             {
-                case BoundsType.None:
-                    goto case BoundsType.Rectangle;
                 case BoundsType.Rectangle:
                     Bounds = new Rectangle();
                     break;
                 default:
-                    goto case BoundsType.None;
+                    goto case BoundsType.Rectangle;
             }
         }
         
