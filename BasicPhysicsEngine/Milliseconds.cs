@@ -21,7 +21,7 @@ namespace BasicPhysicsEngine
         
         public static Milliseconds FromSeconds(float seconds)
         {
-            return new((int)seconds * 1000);
+            return new((int)(seconds * 1000));
         }
 
         public override string ToString()

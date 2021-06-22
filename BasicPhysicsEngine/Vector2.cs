@@ -13,6 +13,11 @@ namespace BasicPhysicsEngine
             Y = y;
         }
 
+        public Vector2 Negative()
+        {
+            return new(-X, -Y);
+        }
+
         public override string ToString()
         {
             return $"{X}, {Y}";
@@ -21,6 +26,7 @@ namespace BasicPhysicsEngine
         public static Vector2 operator +(Vector2 a, Vector2 b) => new(a.X + b.X, a.Y + b.Y);
         public static Vector2 operator -(Vector2 a, Vector2 b) => new(a.X - b.X, a.Y - b.Y);
         public static Vector2 operator *(Vector2 a, int b) => new(a.X * b, a.Y * b);
+        public static Vector2 operator *(Vector2 a, float b) => new(a.X * b, a.Y * b);
         public static Vector2 operator /(Vector2 a, int b) => new(a.X / b, a.Y / b);
         
         public static implicit operator Vector2f(Vector2 v2) => new Vector2f(v2.X, v2.Y);

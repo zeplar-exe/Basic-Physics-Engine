@@ -30,7 +30,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
 
         public abstract void Resize(Vector2 size);
 
-        public abstract bool IsOverlapping(PhysicsObject other);
+        public abstract CollisionArea IsOverlapping(PhysicsObject other);
 
         public abstract Shape ToShape();
         
@@ -89,10 +89,26 @@ namespace BasicPhysicsEngine.PhysicsObjects
             Right = Center + new Vector2(size.X/2, 0);
         }
 
-        public override bool IsOverlapping(PhysicsObject other)
+        public override CollisionArea IsOverlapping(PhysicsObject other)
         {
-            return left.X < other.Bounds.Right.X && Right.X > other.Bounds.Left.X &&
-                   Top.Y > other.Bounds.Bottom.Y && Bottom.Y < other.Bounds.Top.Y;
+            CollisionArea collisionArea = CollisionArea.None;
+
+            if (left.X <= other.Bounds.Right.X && Right.X >= other.Bounds.Right.X)
+                collisionArea |= CollisionArea.Left;
+
+            if (Right.X >= other.Bounds.Left.X && Left.X <= other.Bounds.Left.X)
+                collisionArea |= CollisionArea.Right;
+
+            if (Bottom.Y <= other.Bounds.Top.Y && Top.Y >= other.Bounds.Top.Y)
+                return CollisionArea.Bottom;
+            
+            if (Top.Y >= other.Bounds.Bottom.Y && Bottom.Y <= other.Bounds.Bottom.Y)
+                return CollisionArea.Top;
+
+            return collisionArea;
+
+            //return left.X < other.Bounds.Right.X && Right.X > other.Bounds.Left.X &&
+            //Top.Y > other.Bounds.Bottom.Y && Bottom.Y < other.Bounds.Top.Y;
         }
 
         public override Shape ToShape()

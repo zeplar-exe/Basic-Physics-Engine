@@ -1,12 +1,15 @@
 using System;
+using SFML.Graphics;
 
 namespace BasicPhysicsEngine.PhysicsObjects
 {
     public sealed class PhysicsObject
     {
         public readonly ObjectBounds Bounds;
+        internal Vector2 velocity;
         
-        public string Name;
+        public readonly PhysicsObjectConfiguration ObjectConfiguration;
+        
         internal ObjectType ObjectType = ObjectType.Default;
         
         internal Milliseconds FallingTime;
@@ -21,15 +24,23 @@ namespace BasicPhysicsEngine.PhysicsObjects
                 default:
                     goto case BoundsType.Rectangle;
             }
+            
+            ObjectConfiguration = new PhysicsObjectConfiguration
+            {
+                Name = "", Color = Color.White, Mass = 1
+            };
         }
         
         public PhysicsObject(ObjectBounds boundsType)
         {
             Bounds = boundsType;
+
+            ObjectConfiguration = new PhysicsObjectConfiguration
+            {
+                Name = "", Color = Color.White, Mass = 1
+            };
         }
-
-        public void SetName(string name) => Name = name;
-
+        
         public void SetPosition(Vector2 position)
         {
             Bounds.Center = position;
@@ -38,6 +49,13 @@ namespace BasicPhysicsEngine.PhysicsObjects
             BoundsChanged?.Invoke(Bounds, new PhysicsEventArgs());
         }
 
+        public void SetConfiguration(PhysicsObjectConfiguration configuration)
+        {
+            ObjectConfiguration.Name = configuration.Name;
+            ObjectConfiguration.Mass = configuration.Mass;
+            ObjectConfiguration.Color = configuration.Color;
+        }
+        
         public void Resize(Vector2 size)
         {
             Bounds.Resize(size);
@@ -54,11 +72,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
         {
             simulator.AddObject(this);
         }
-
-        internal void ApplyGravity(Gravity gravity)
-        {
-            Bounds.Center -= new Vector2(0, gravity.GetPositionAfterT(FallingTime));
-        }
+        
 
         public class PhysicsEventArgs
         {

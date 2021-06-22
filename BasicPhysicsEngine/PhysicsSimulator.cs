@@ -29,7 +29,7 @@ namespace BasicPhysicsEngine
                     "Simulation time settings cannot be null. Did you forget to call 'ApplyTimeSettings'?");
 
             running = true;
-
+            
             new Thread(UpdateLoop).Start();
         }
 
@@ -37,7 +37,10 @@ namespace BasicPhysicsEngine
         {
             while (running)
             {
-                Thread.Sleep(updateStep);
+                Thread.Sleep(ScaledStep);
+                
+                time.ElapsedTime += ScaledStep;
+                
                 Update();
             }
         }
@@ -127,6 +130,7 @@ namespace BasicPhysicsEngine
                 {
                     var shape = physicsObject.Bounds.ToShape();
                     shape.Position = windowCenter - physicsObject.Bounds.Center;
+                    shape.FillColor = physicsObject.ObjectConfiguration.Color;
 
                     window.Draw(shape);
                 }
@@ -156,33 +160,44 @@ namespace BasicPhysicsEngine
 
         private void HandleDynamicObject(PhysicsObject physicsObject)
         {
-            bool grounded = false;
+            Vector2 gravityAcceleration = new Vector2(0, gravity.GetOffsetAfterT(time.ElapsedTime) /
+                                        physicsObject.ObjectConfiguration.Mass);
 
-            // TODO: Possibly use k-d trees to optimize
+            physicsObject.velocity += gravityAcceleration * ScaledStep.ToSeconds();
+            physicsObject.Bounds.Center += physicsObject.velocity * ScaledStep.ToSeconds();
+
             foreach (PhysicsObject otherObject in objects)
             {
-                if (physicsObject == otherObject)
+                if (otherObject == physicsObject)
                     continue;
 
-                if (physicsObject.Bounds.IsOverlapping(otherObject))
+                CollisionArea area = physicsObject.Bounds.IsOverlapping(otherObject);
+
+                Console.WriteLine(area);
+                
+                if (area.HasFlag(CollisionArea.None))
+                    return;
+                    
+                if (area.HasFlag(CollisionArea.Left) || area.HasFlag(CollisionArea.Right))
                 {
-                    grounded = true;
-                    break;
+                    physicsObject.velocity.X = -physicsObject.velocity.X * 0.75f;
+                }
+                
+                if (area.HasFlag(CollisionArea.Bottom) || area.HasFlag(CollisionArea.Top))
+                {
+                    physicsObject.velocity.Y = -physicsObject.velocity.Y * 0.75f;
                 }
             }
-
-            if (!grounded)
-                physicsObject.FallingTime += updateStep;
-            else
-                physicsObject.FallingTime = 0;
-
-            physicsObject.ApplyGravity(gravity);
         }
 
         private void HandleKinematicCollision(PhysicsObject objectA, PhysicsObject objectB)
         {
+            objectA.InvokeCollision(objectB);
+
             if (!objectB.ObjectType.HasFlag(ObjectType.Kinematic))
                 return;
         }
+
+        private Milliseconds ScaledStep => Milliseconds.FromSeconds(updateStep.ToSeconds() * time.Scale);
     }
 }

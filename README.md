@@ -5,7 +5,7 @@ A lightweight physics engine built in C# to simulate multiple environments.
 Table of Contents
 - [`Physics Simulator`](#physics-simulator)
 - [`Physics Object`](#physics-object)
-- [`Physics Bounds`](#object-bounds)
+- [`Object Bounds`](#object-bounds)
   - [`Rectangle`](#rectangle)
 
 # Physics Simulator
