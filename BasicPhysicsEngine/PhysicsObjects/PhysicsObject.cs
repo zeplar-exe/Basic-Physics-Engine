@@ -27,7 +27,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
             
             ObjectConfiguration = new PhysicsObjectConfiguration
             {
-                Name = "", Color = Color.White, Mass = 1
+                Name = "", Color = new ColorWrapper(255, 255, 255), Mass = 1
             };
         }
         
@@ -37,7 +37,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
 
             ObjectConfiguration = new PhysicsObjectConfiguration
             {
-                Name = "", Color = Color.White, Mass = 1
+                Name = "", Color = new ColorWrapper(255, 255, 255), Mass = 1
             };
         }
         
