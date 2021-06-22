@@ -86,3 +86,7 @@ public abstract Shape ToShape();
 
 public abstract override string ToString();
 ```
+
+# Installation
+
+Project is not yet ready for external use.
