@@ -5,7 +5,7 @@ A lightweight resume project used to simulate physics environments
 Table of Contents
 - [`Physics Simulator`](#physics-simulator)
 - [`Physics Object`](#physics-object)
-- [`Physics Bounds`](#physics-bounds)
+- [`Physics Bounds`](#object-bounds)
   - [`Rectangle`](#rectangle)
 
 # Physics Simulator

@@ -51,7 +51,7 @@ namespace BasicPhysicsEngine
 
         private void WindowThread()
         {
-            var window = new RenderWindow(new VideoMode(800, 500), "Physics Simulation", Styles.Close);
+            var window = new RenderWindow(new VideoMode(800, 500), "Physics Simulation", Styles.Default);
             // TODO: Figure out how to allow for window resizing and keep proportions
 
             bool movingDisplay = false;
@@ -94,22 +94,31 @@ namespace BasicPhysicsEngine
                 window.SetView(view);
             };
 
-            window.MouseWheelScrolled += delegate
+            window.MouseWheelScrolled += delegate(object sender, MouseWheelScrollEventArgs args)
             {
+                if (args.Delta <= -1)
+                    zoomLevel = Math.Min(2f, zoomLevel + .1f);
+                else if (args.Delta >= 1)
+                    zoomLevel = Math.Max(.5f, zoomLevel - .1f);
+                
                 view.Size = window.DefaultView.Size;
                 view.Zoom(zoomLevel);
                 window.SetView(view);
             };
-
-            window.Resized += (_, _) => window.SetView(view);
+            
+            window.Resized += delegate(object? sender, SizeEventArgs args)
+            {
+                view.Size = new Vector2f(args.Width, args.Height);;
+                view.Center = new Vector2f(args.Width / 2f, args.Height / 2f);
+                
+                window.SetView(view);
+            };
 
             #endregion
-            
-            Vector2f windowCenter;
 
             while (window.IsOpen && running)
             {
-                windowCenter = new Vector2f(window.Size.X / 2f, window.Size.Y / 2f);
+                var windowCenter = new Vector2f(window.Size.X / 2f, window.Size.Y / 2f);
 
                 window.Clear();
                 window.DispatchEvents();
