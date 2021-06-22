@@ -8,8 +8,9 @@ namespace BasicPhysicsEngine.PhysicsObjects
     
     public abstract class ObjectBounds
     {
+        protected Vector2 size;
+        
         protected Vector2 center { get; set; }
-
         public abstract Vector2 Center { get; set; }
 
         protected Vector2 top;
@@ -80,6 +81,8 @@ namespace BasicPhysicsEngine.PhysicsObjects
 
         public override void Resize(Vector2 size)
         {
+            this.size = size;
+            
             Top = Center + new Vector2(0, size.Y/2);
             Bottom = Center + new Vector2(0, -(size.Y/2));
             Left = Center + new Vector2(-(size.X/2), 0);
@@ -94,8 +97,12 @@ namespace BasicPhysicsEngine.PhysicsObjects
 
         internal override Shape ToShape()
         {
-            throw new NotImplementedException();
-            //return new RectangleShape(new Vector2(Math.Abs(Right.X) - Math.Abs(Left.X), Math.Abs(Bottom.Y) - Math.Abs(Top.Y)));
+            return new RectangleShape
+            {
+                Size = size,
+                Origin = new Vector2f(size.X / 2, size.Y / 2),
+                FillColor = Color.White
+            };
         }
 
         public override string ToString()

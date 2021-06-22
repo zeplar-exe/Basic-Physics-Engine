@@ -6,7 +6,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
     {
         public readonly ObjectBounds Bounds;
         
-        internal string Name;
+        public string Name;
         internal ObjectType ObjectType = ObjectType.Default;
         
         internal Milliseconds FallingTime;
