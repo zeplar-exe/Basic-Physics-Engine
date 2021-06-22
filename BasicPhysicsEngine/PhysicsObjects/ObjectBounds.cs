@@ -106,9 +106,6 @@ namespace BasicPhysicsEngine.PhysicsObjects
                 return CollisionArea.Top;
 
             return collisionArea;
-
-            //return left.X < other.Bounds.Right.X && Right.X > other.Bounds.Left.X &&
-            //Top.Y > other.Bounds.Bottom.Y && Bottom.Y < other.Bounds.Top.Y;
         }
 
         public override Shape ToShape()
