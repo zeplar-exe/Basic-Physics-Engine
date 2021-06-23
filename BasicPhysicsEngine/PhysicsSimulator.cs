@@ -163,7 +163,7 @@ namespace BasicPhysicsEngine
                                         physicsObject.ObjectConfiguration.Mass);
 
             physicsObject.AddForce(gravityAcceleration * ScaledStep.ToSeconds());
-            physicsObject.Bounds.Center += physicsObject.Velocity * ScaledStep.ToSeconds();
+            physicsObject.Bounds.Center += physicsObject.Velocity;
 
             foreach (PhysicsObject otherObject in objects)
             {
@@ -174,10 +174,12 @@ namespace BasicPhysicsEngine
 
                 if (area == CollisionArea.None)
                     return;
-                    
+
+                physicsObject.Bounds.Center -= physicsObject.Velocity;
+
                 if (area.HasFlag(CollisionArea.Left) || area.HasFlag(CollisionArea.Right))
                 {
-                    physicsObject.Velocity.X = -physicsObject.Velocity.X * 
+                    physicsObject.Velocity.X = -physicsObject.Velocity.X *
                                                physicsObject.ObjectConfiguration.Elasticity * 0.75f;
                 }
                 

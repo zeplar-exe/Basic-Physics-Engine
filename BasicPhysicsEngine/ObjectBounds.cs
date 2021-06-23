@@ -101,16 +101,16 @@ namespace BasicPhysicsEngine
                 return collisionArea;
 
             if (Left.X <= other.Bounds.Right.X && Right.X >= other.Bounds.Right.X)
-                collisionArea |= CollisionArea.Left;
-
-            if (Right.X >= other.Bounds.Left.X && Left.X <= other.Bounds.Left.X)
                 collisionArea |= CollisionArea.Right;
 
+            if (Right.X >= other.Bounds.Left.X && Left.X <= other.Bounds.Left.X)
+                collisionArea |= CollisionArea.Left;
+
             if (Bottom.Y <= other.Bounds.Top.Y && Top.Y >= other.Bounds.Top.Y)
-                collisionArea |= CollisionArea.Bottom;
+                collisionArea |= CollisionArea.Top;
             
             if (Top.Y >= other.Bounds.Bottom.Y && Bottom.Y <= other.Bounds.Bottom.Y)
-                collisionArea |= CollisionArea.Top;
+                collisionArea |= CollisionArea.Bottom;
 
             return collisionArea;
         }
