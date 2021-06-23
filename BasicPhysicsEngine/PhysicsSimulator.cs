@@ -162,7 +162,7 @@ namespace BasicPhysicsEngine
             Vector2 gravityAcceleration = new Vector2(0, gravity.GetOffsetAfterT(time.ElapsedTime) /
                                         physicsObject.ObjectConfiguration.Mass);
 
-            physicsObject.Velocity += gravityAcceleration * ScaledStep.ToSeconds();
+            physicsObject.AddForce(gravityAcceleration * ScaledStep.ToSeconds());
             physicsObject.Bounds.Center += physicsObject.Velocity * ScaledStep.ToSeconds();
 
             foreach (PhysicsObject otherObject in objects)
@@ -172,7 +172,7 @@ namespace BasicPhysicsEngine
 
                 CollisionArea area = physicsObject.Bounds.IsOverlapping(otherObject);
 
-                if (area.HasFlag(CollisionArea.None))
+                if (area == CollisionArea.None)
                     return;
                     
                 if (area.HasFlag(CollisionArea.Left) || area.HasFlag(CollisionArea.Right))
