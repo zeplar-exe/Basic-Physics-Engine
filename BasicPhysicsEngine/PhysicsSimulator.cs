@@ -177,12 +177,14 @@ namespace BasicPhysicsEngine
                     
                 if (area.HasFlag(CollisionArea.Left) || area.HasFlag(CollisionArea.Right))
                 {
-                    physicsObject.Velocity.X = -physicsObject.Velocity.X * 0.75f;
+                    physicsObject.Velocity.X = -physicsObject.Velocity.X * 
+                                               physicsObject.ObjectConfiguration.Elasticity * 0.75f;
                 }
                 
                 if (area.HasFlag(CollisionArea.Bottom) || area.HasFlag(CollisionArea.Top))
                 {
-                    physicsObject.Velocity.Y = -physicsObject.Velocity.Y * 0.75f;
+                    physicsObject.Velocity.Y = -physicsObject.Velocity.Y * 
+                                               physicsObject.ObjectConfiguration.Elasticity * 0.75f;
                 }
             }
         }
