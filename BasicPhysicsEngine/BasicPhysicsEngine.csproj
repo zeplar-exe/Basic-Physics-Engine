@@ -2,11 +2,16 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>BasicPhysicsEngine</Title>
+        <Authors>zeplar_exe</Authors>
+        <Description>A basic physics engine to simulate multiple environments.</Description>
+        <RepositoryUrl>https://github.com/zeplar-exe/Basic-Physics-Engine</RepositoryUrl>
+        <PackageTags>physics</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="SFML.Net" Version="2.5.0" />
-      <PackageReference Include="Ultraviolet" Version="2021.5.0.4569" />
     </ItemGroup>
 
 </Project>
