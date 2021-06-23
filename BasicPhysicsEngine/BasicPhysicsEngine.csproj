@@ -9,6 +9,7 @@
         <RepositoryUrl>https://github.com/zeplar-exe/Basic-Physics-Engine</RepositoryUrl>
         <PackageTags>physics</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageVersion>1.2.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
