@@ -190,8 +190,6 @@ namespace BasicPhysicsEngine
 
         private void HandleKinematicCollision(PhysicsObject objectA, PhysicsObject objectB)
         {
-            objectA.InvokeCollision(objectB);
-
             if (!objectB.ObjectType.HasFlag(ObjectType.Kinematic))
                 return;
         }

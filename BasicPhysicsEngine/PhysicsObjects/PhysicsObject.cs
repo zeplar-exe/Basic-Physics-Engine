@@ -3,7 +3,7 @@ using SFML.Graphics;
 
 namespace BasicPhysicsEngine.PhysicsObjects
 {
-    public sealed class PhysicsObject
+    public sealed partial class PhysicsObject
     {
         public readonly ObjectBounds Bounds;
         internal Vector2 velocity;
@@ -44,9 +44,6 @@ namespace BasicPhysicsEngine.PhysicsObjects
         public void SetPosition(Vector2 position)
         {
             Bounds.Center = position;
-            
-            PositionChanged?.Invoke(position, new PhysicsEventArgs());
-            BoundsChanged?.Invoke(Bounds, new PhysicsEventArgs());
         }
 
         public void SetConfiguration(PhysicsObjectConfiguration configuration)
@@ -59,8 +56,6 @@ namespace BasicPhysicsEngine.PhysicsObjects
         public void Resize(Vector2 size)
         {
             Bounds.Resize(size);
-            
-            BoundsChanged?.Invoke(Bounds, new PhysicsEventArgs());
         }
 
         public void SetObjectType(ObjectType type)
@@ -72,45 +67,5 @@ namespace BasicPhysicsEngine.PhysicsObjects
         {
             simulator.AddObject(this);
         }
-        
-
-        public class PhysicsEventArgs
-        {
-            public long UnixTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
-        }
-        public delegate void ListenerEventHandler(object message, PhysicsEventArgs args);
-        internal event ListenerEventHandler PositionChanged;
-        internal event ListenerEventHandler BoundsChanged;
-        internal event ListenerEventHandler OnCollision;
-
-        internal void InvokeCollision(PhysicsObject other)
-        {
-            OnCollision?.Invoke(other, new PhysicsEventArgs());
-        }
-
-        public void ListenTo(ListenerType listenerType, Action<object, PhysicsEventArgs> callback)
-        {
-            switch (listenerType)
-            {
-                case ListenerType.Position:
-                    PositionChanged += new ListenerEventHandler(callback);
-                    break;
-                case ListenerType.Bounds:
-                    BoundsChanged += new ListenerEventHandler(callback);
-                    break;
-                case ListenerType.Collision:
-                    OnCollision += new ListenerEventHandler(callback);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-    }
-
-    public enum ListenerType
-    {
-        Position,
-        Bounds,
-        Collision,
     }
 }

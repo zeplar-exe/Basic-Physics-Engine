@@ -9,7 +9,7 @@ namespace BasicPhysicsEngine.PhysicsObjects
     public abstract class ObjectBounds
     {
         protected Vector2 size;
-        
+
         protected Vector2 center { get; set; }
         public abstract Vector2 Center { get; set; }
 
