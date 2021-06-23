@@ -8,6 +8,7 @@
         <Description>A basic physics engine to simulate multiple environments.</Description>
         <RepositoryUrl>https://github.com/zeplar-exe/Basic-Physics-Engine</RepositoryUrl>
         <PackageTags>physics</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>

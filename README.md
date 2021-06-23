@@ -2,11 +2,11 @@
 
 A lightweight physics engine built in C# to simulate multiple environments.
 
-Table of Contents
-- [`Physics Simulator`](#physics-simulator)
-- [`Physics Object`](#physics-object)
-- [`Object Bounds`](#object-bounds)
-  - [`Rectangle`](#rectangle)
+# Installation
+
+99% of the time, you'll find the class library DLL under releases.
+
+Download that, then add it's reference in whatever IDE you use.
 
 # Physics Simulator
 Class used to create instances of physics simulations. Each simulation has a unique timescale and physics settings. 
@@ -86,7 +86,3 @@ public abstract Shape ToShape();
 
 public abstract override string ToString();
 ```
-
-# Installation
-
-Project is not yet ready for external use.
