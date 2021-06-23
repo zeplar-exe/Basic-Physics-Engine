@@ -25,6 +25,8 @@ simulator.ApplyTimeSettings(Time.Default()); // 'Time.Default()' is an alternati
 simulator.Start(); // Keep in mind that a simulation will automatically stop if there are no PhysicsObjects
 ```
 
+To start a simulation with a real-time display, call `simulator.StartWithVisuals()` instead.
+
 A simulation can be successfully started when Gravity and Time settings have been applied.
 It will automatically stop if all PhysicsObjects have been destroyed.
 
@@ -48,11 +50,11 @@ physObject.AddToSimulation(simulator);
 
 PhysicsObject ground = new PhysicsObject(Bounds.Rectangle);
 
-physObject.SetObjectType(ObjectType.Static);
+ground.SetObjectType(ObjectType.Static);
 // Static objects cannot be moved and are not affected by physics.
 
-physObject.Resize(new Vector3(30, 1));
-physObject.AddToSimulation(simulator);
+ground.Resize(new Vector3(30, 1));
+ground.AddToSimulation(simulator);
 
 // Object type 'ObjectType.Dynamic | ObjectType.Kinematic' can also be written as 'ObjectType.Default'
 ```
