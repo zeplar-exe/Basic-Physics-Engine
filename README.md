@@ -2,6 +2,8 @@
 
 A lightweight physics engine built in C# to simulate multiple environments.
 
+NuGet Package: https://www.nuget.org/packages/BasicPhysicsEngine/
+
 # Installation
 
 99% of the time, you'll find the class library DLL under releases.
