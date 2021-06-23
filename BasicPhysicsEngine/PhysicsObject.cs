@@ -3,16 +3,14 @@ using SFML.Graphics;
 
 namespace BasicPhysicsEngine.PhysicsObjects
 {
-    public sealed partial class PhysicsObject
+    public sealed class PhysicsObject
     {
         public readonly ObjectBounds Bounds;
-        internal Vector2 velocity;
+        internal Vector2 Velocity;
         
         public readonly PhysicsObjectConfiguration ObjectConfiguration;
         
         internal ObjectType ObjectType = ObjectType.Default;
-        
-        internal Milliseconds FallingTime;
 
         public PhysicsObject(BoundsType boundsType)
         {
