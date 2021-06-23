@@ -1,3 +1,4 @@
+using System;
 using SFML.Graphics;
 using SFML.System;
 
@@ -7,9 +8,12 @@ namespace BasicPhysicsEngine
     
     public abstract class ObjectBounds
     {
+        protected Vector2 min => center - new Vector2(Left.X / 2, Bottom.Y / 2);
+        protected Vector2 max => center + new Vector2(Right.X / 2, Top.Y / 2);
+
+        protected Vector2 center;
         protected Vector2 size;
 
-        protected Vector2 center { get; set; }
         public abstract Vector2 Center { get; set; }
 
         protected Vector2 top;
@@ -27,7 +31,7 @@ namespace BasicPhysicsEngine
         protected Vector2 right;
         public abstract Vector2 Right { get; set; }
 
-        public abstract void Resize(Vector2 size);
+        public abstract void Resize(Vector2 newSize);
 
         public abstract CollisionArea IsOverlapping(PhysicsObject other);
 
@@ -78,31 +82,35 @@ namespace BasicPhysicsEngine
             set => right = value;
         }
 
-        public override void Resize(Vector2 size)
+        public override void Resize(Vector2 newSize)
         {
-            this.size = size;
+            size = newSize;
             
-            Top = Center + new Vector2(0, size.Y/2);
-            Bottom = Center + new Vector2(0, -(size.Y/2));
-            Left = Center + new Vector2(-(size.X/2), 0);
-            Right = Center + new Vector2(size.X/2, 0);
+            Top = Center + new Vector2(0, newSize.Y/2);
+            Bottom = Center + new Vector2(0, -(newSize.Y/2));
+            Left = Center + new Vector2(-(newSize.X/2), 0);
+            Right = Center + new Vector2(newSize.X/2, 0);
         }
 
         public override CollisionArea IsOverlapping(PhysicsObject other)
         {
             CollisionArea collisionArea = CollisionArea.None;
 
-            if (left.X <= other.Bounds.Right.X && Right.X >= other.Bounds.Right.X)
+            if (!(Left.X < other.Bounds.Right.X && Right.X > other.Bounds.Left.X &&
+                  Top.X > other.Bounds.Bottom.Y && Bottom.Y < other.Bounds.Top.Y))
+                return collisionArea;
+
+            if (Left.X <= other.Bounds.Right.X && Right.X >= other.Bounds.Right.X)
                 collisionArea |= CollisionArea.Left;
 
             if (Right.X >= other.Bounds.Left.X && Left.X <= other.Bounds.Left.X)
                 collisionArea |= CollisionArea.Right;
 
             if (Bottom.Y <= other.Bounds.Top.Y && Top.Y >= other.Bounds.Top.Y)
-                return CollisionArea.Bottom;
+                collisionArea |= CollisionArea.Bottom;
             
             if (Top.Y >= other.Bounds.Bottom.Y && Bottom.Y <= other.Bounds.Bottom.Y)
-                return CollisionArea.Top;
+                collisionArea |= CollisionArea.Top;
 
             return collisionArea;
         }

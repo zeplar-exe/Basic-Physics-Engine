@@ -41,6 +41,11 @@ namespace BasicPhysicsEngine
             Bounds.Center = position;
         }
 
+        public void AddForce(Vector2 force)
+        {
+            Velocity += force;
+        }
+        
         public void SetConfiguration(PhysicsObjectConfiguration configuration)
         {
             ObjectConfiguration.Name = configuration.Name;
