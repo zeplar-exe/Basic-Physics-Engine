@@ -1,5 +1,3 @@
-using BasicPhysicsEngine.PhysicsObjects;
-
 namespace BasicPhysicsEngine
 {
     public partial class PhysicsSimulator

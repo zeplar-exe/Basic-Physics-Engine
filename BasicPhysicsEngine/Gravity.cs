@@ -2,9 +2,9 @@ namespace BasicPhysicsEngine
 {
     public class Gravity
     {
-        private float strength = -9.81f;
+        private readonly float strength;
 
-        public void SetGravity(float gravity)
+        public Gravity(float gravity)
         {
             strength = gravity;
         }
@@ -14,9 +14,19 @@ namespace BasicPhysicsEngine
             return strength * milliseconds.ToSeconds();
         }
 
-        public static Gravity Default()
+        public static Gravity Earth()
         {
-            return new();
+            return new(-9.81f);
+        }
+        
+        public static Gravity Moon()
+        {
+            return new(-1.62f);
+        }
+
+        public static Gravity Mars()
+        {
+            return new(-3.71f);
         }
     }
 }

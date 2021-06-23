@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using BasicPhysicsEngine.PhysicsObjects;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -163,8 +162,8 @@ namespace BasicPhysicsEngine
             Vector2 gravityAcceleration = new Vector2(0, gravity.GetOffsetAfterT(time.ElapsedTime) /
                                         physicsObject.ObjectConfiguration.Mass);
 
-            physicsObject.velocity += gravityAcceleration * ScaledStep.ToSeconds();
-            physicsObject.Bounds.Center += physicsObject.velocity * ScaledStep.ToSeconds();
+            physicsObject.Velocity += gravityAcceleration * ScaledStep.ToSeconds();
+            physicsObject.Bounds.Center += physicsObject.Velocity * ScaledStep.ToSeconds();
 
             foreach (PhysicsObject otherObject in objects)
             {
@@ -178,12 +177,12 @@ namespace BasicPhysicsEngine
                     
                 if (area.HasFlag(CollisionArea.Left) || area.HasFlag(CollisionArea.Right))
                 {
-                    physicsObject.velocity.X = -physicsObject.velocity.X * 0.75f;
+                    physicsObject.Velocity.X = -physicsObject.Velocity.X * 0.75f;
                 }
                 
                 if (area.HasFlag(CollisionArea.Bottom) || area.HasFlag(CollisionArea.Top))
                 {
-                    physicsObject.velocity.Y = -physicsObject.velocity.Y * 0.75f;
+                    physicsObject.Velocity.Y = -physicsObject.Velocity.Y * 0.75f;
                 }
             }
         }

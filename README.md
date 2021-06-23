@@ -17,8 +17,8 @@ Usage (C#):
 PhysicsSimulator simulator = new PhysicsSimulator();
 
 simulator.SetPhysicsStep(new Milliseconds(10));
-simulator.ApplyGravitySettings(Gravity.Default()); // 'Gravity.Default()' is an alternative to 'new Gravity()'
-simulator.ApplyTimeSettings(Time.Default()); // 'Time.Default()' is an alternative to 'new Time()'
+simulator.ApplyGravitySettings(Gravity.Earth()); // 'Gravity.Earth()' is an alternative to 'new Gravity(-9.81f)'
+simulator.ApplyTimeSettings(Time.Default()); // 'Time.Default()' is an alternative to 'new Time(1)'
 
 simulator.Start(); // Keep in mind that a simulation will automatically stop if there are no PhysicsObjects
 ```

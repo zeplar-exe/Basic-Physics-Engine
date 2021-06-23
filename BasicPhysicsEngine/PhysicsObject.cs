@@ -1,7 +1,4 @@
-using System;
-using SFML.Graphics;
-
-namespace BasicPhysicsEngine.PhysicsObjects
+namespace BasicPhysicsEngine
 {
     public sealed class PhysicsObject
     {

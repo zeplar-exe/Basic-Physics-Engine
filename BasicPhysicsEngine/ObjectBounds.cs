@@ -1,8 +1,7 @@
-using System;
 using SFML.Graphics;
 using SFML.System;
 
-namespace BasicPhysicsEngine.PhysicsObjects
+namespace BasicPhysicsEngine
 {
     public enum BoundsType { Rectangle }
     

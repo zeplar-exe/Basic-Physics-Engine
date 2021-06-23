@@ -1,4 +1,4 @@
-namespace BasicPhysicsEngine.PhysicsObjects
+namespace BasicPhysicsEngine
 {
     public class PhysicsObjectConfiguration
     {
