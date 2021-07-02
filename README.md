@@ -61,6 +61,28 @@ ground.AddToSimulation(simulator);
 
 The PhysicsObject class cannot be subclassed.
 
+## Physics Object Configuration
+
+Used to configure the properties of a PhysicsObject.
+
+```c#
+physicsObject.SetConfiguration(new PhysicsObjectConfiguration()
+{
+  Name = "MyObjectName",
+  Mass = 15,
+  Elasticity = 0,
+  Color = ColorWrapper.Blue
+});
+```
+
+By default, a physics object has the following properties: `Name = ""`, `Mass = 1`, `Elasticity = 1`, and `Color = ColorWrapper.White`
+
+Mass controls how much an object is affected by gravity.
+Elasticity controls how bouncy an object is.
+Color defines what color the object is when using `simulator.StartWithVisuals(...)`
+
+Note that ColorWrapper wraps SFML.Graphics.Color
+
 # Object Bounds
 The ObjectBounds class defines a template for collision boundaries of all Physics Objects.
 ObjectBounds are publicly exposed, allowing for custom shapes.
