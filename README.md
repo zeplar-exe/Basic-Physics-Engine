@@ -1,3 +1,5 @@
+## This project is discontinued, see [PhySim](https://github.com/zeplar-exe/PhySim) for a completely different continuation of the project.
+
 # Basic Physics Engine
 
 A lightweight physics engine built in C# to simulate multiple environments.
